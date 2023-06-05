@@ -37,6 +37,8 @@ class App extends Component {
 
     if (!simpsons) return <Loading />;
 
+    if (simpsons.length === 0) return <p>You deleted all the characters!</p>
+
     return (
       <>
         <h1>Total no of liked chars #</h1>

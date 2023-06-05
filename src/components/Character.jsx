@@ -12,8 +12,24 @@ class Character extends Component {
   };
 
   render() {
-    const { character, quote, image, id } = this.props.item;
+    const { character, quote, image, id, characterDirection} = this.props.item;
     const { like } = this.state;
+
+  //Make the character face the correct direction changing the order of the components
+    if (characterDirection === "Left") {
+      return (
+        <div className="characterContainer">
+          <Name
+            character={character}
+            like={like}
+            onLikeToggle={this.onLikeToggle}
+          />
+          <Image image={image} like={like} />
+          <Quote quote={quote} />
+          <Delete onDelete={this.props.onDelete} id={id} />
+        </div>
+      );
+    }
 
     return (
       <div className="characterContainer">
