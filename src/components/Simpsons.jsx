@@ -13,6 +13,8 @@ class Simpsons extends Component {
               item={item}
               key={item.id}
               onDelete={this.props.onDelete}
+              onLikeToggle={this.props.onLikeToggle}
+
             />
           );
         })}
