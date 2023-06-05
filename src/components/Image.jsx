@@ -4,12 +4,7 @@ class Image extends Component {
   render() {
     const { image, character } = this.props;
 
-    return (
-      <img
-        src={image}
-        alt={character}
-      />
-    );
+    return <img src={image} alt={character} />;
   }
 }
 
