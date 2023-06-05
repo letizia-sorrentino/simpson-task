@@ -12,7 +12,7 @@ class Character extends Component {
   };
 
   render() {
-    const { character, quote, image } = this.props.item;
+    const { character, quote, image, id } = this.props.item;
     const { like } = this.state;
 
     return (
@@ -24,7 +24,7 @@ class Character extends Component {
         />
         <Quote quote={quote} />
         <Image image={image} like={like} />
-        <Delete />
+        <Delete onDelete={this.props.onDelete} id={id} />
       </div>
     );
   }

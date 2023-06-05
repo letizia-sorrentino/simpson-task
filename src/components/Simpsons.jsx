@@ -8,7 +8,13 @@ class Simpsons extends Component {
     return (
       <>
         {simpsons.map((item, index) => {
-          return <Character item={item} key={item.quote} />;
+          return (
+            <Character
+              item={item}
+              key={item.id}
+              onDelete={this.props.onDelete}
+            />
+          );
         })}
       </>
     );
