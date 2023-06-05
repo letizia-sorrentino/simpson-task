@@ -8,6 +8,7 @@ class Character extends Component {
 
   render() {
     const { character, quote, image, id, characterDirection, liked } = this.props.item;
+    const { onLikeToggle, onDelete} = this.props;
 
   //Make the character face the correct direction changing the order of the components
     if (characterDirection === "Left") {
@@ -15,14 +16,14 @@ class Character extends Component {
         <div className="characterContainer">
           <Name
             character={character}
-            onLikeToggle={this.props.onLikeToggle}
+            onLikeToggle={onLikeToggle}
             id={id}
             liked={liked}
           />
           <Image image={image} />
           <Quote quote={quote} />
           <Delete 
-          onDelete={this.props.onDelete} 
+          onDelete={onDelete} 
           id={id} 
           />
         </div>

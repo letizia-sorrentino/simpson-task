@@ -3,7 +3,7 @@ import Character from "./Character";
 
 class Simpsons extends Component {
   render() {
-    const { simpsons } = this.props;
+    const { simpsons, onDelete, onLikeToggle } = this.props;
 
     return (
       <>
@@ -12,8 +12,8 @@ class Simpsons extends Component {
             <Character
               item={item}
               key={item.id}
-              onDelete={this.props.onDelete}
-              onLikeToggle={this.props.onLikeToggle}
+              onDelete={onDelete}
+              onLikeToggle={onLikeToggle}
 
             />
           );
