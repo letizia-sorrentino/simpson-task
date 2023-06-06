@@ -27,10 +27,8 @@ class App extends Component {
   };
 
   onLikeInput = (e) => {
-    this.setState({LikeInput: e.target.value})
-  }
-
-
+    this.setState({ likeInput: e.target.value });
+  };
 
   // Function to update the character to toggle between like/dislike
   onLikeToggle = (id) => {
@@ -56,44 +54,37 @@ class App extends Component {
     this.setState({ simpsons });
   };
 
-//Function to return the filtered list
-getFilteredList = () => {
+  //Function to return the filtered list
+  getFilteredList = () => {
+    const { simpsons, searchInput, likeInput } = this.state;
 
-const {simpsons, searchInput, LikeInput} = this.state;
+    //calculate the data we want to show
+    let filteredList = [...simpsons];
 
-//calculate the data we want to show
-let filteredList = [...simpsons];
+    //filtered by search
+    if (searchInput) {
+      filteredList = filteredList.filter((char) => {
+        console.log(char.character, searchInput);
+        if (char.character.toLowerCase().includes(searchInput.toLowerCase()))
+          return true;
+      });
+    }
 
-//filtered by search
-if (searchInput) {
-  filteredList = filteredList.filter((char) => {
-    console.log(char.character, searchInput)
-    if (
-      char.character
-      .toLowerCase()
-      .includes(searchInput.toLowerCase())
-      )
-      return true;
-  });
-}
+    //sort by liked / not liked
+    if (likeInput === "liked") {
+      filteredList.sort((itemOne, itemTwo) => {
+        if (itemOne.liked === true) return -1;
+        if (!itemTwo.liked) return 1;
+      });
+    } else if (likeInput === "notLiked") {
+      filteredList.sort((itemOne, itemTwo) => {
+        if (itemTwo.liked === true) return -1;
+        if (!itemOne.liked) return 1;
+      });
+    }
 
-//sort by liked / not liked
-if (LikeInput === "liked") {
-filteredList.sort((itemOne, itemTwo) => {
-if (itemOne.liked === true) return -1;
-if (!itemTwo.liked) return 1; 
-});
-} else if (LikeInput === "notLiked") {
-  filteredList.sort((itemOne, itemTwo) => {
-      if (itemTwo.liked === true) return -1;
-      if (!itemOne.liked) return 1; 
-
-  });
-}
-
-
-return filteredList;
-}
+    return filteredList;
+  };
 
   render() {
     //console.log(this.state);
@@ -109,15 +100,15 @@ return filteredList;
     simpsons.forEach((char) => {
       if (char.liked) total++;
     });
-
+    console.log(this.state.searchInput);
     return (
       <>
         <h1>Total no of liked chars #{total}</h1>
         <Simpsons
-          simpsons={simpsons}
+          //simpsons={filteredList}
           //list={filteredList.lenght ? filteredList : simpsons}
           //list={filteredList}
-          //list = {this.state.getFilteredList()}
+          simpsons = {this.getFilteredList()}
           onDelete={this.onDelete}
           onLikeToggle={this.onLikeToggle}
           onSearchInput={this.onSearchInput}
