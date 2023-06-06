@@ -26,6 +26,12 @@ class App extends Component {
     this.setState({ searchInput: e.target.value });
   };
 
+  onLikeInput = (e) => {
+    this.setState({LikeInput: e.target.value})
+  }
+
+
+
   // Function to update the character to toggle between like/dislike
   onLikeToggle = (id) => {
     //find the item
@@ -53,25 +59,37 @@ class App extends Component {
 //Function to return the filtered list
 getFilteredList = () => {
 
-//calculate the data we want to show
-let filteredList = [...this.state.simpsons];
+const {simpsons, searchInput, LikeInput} = this.state;
 
-if (this.state.searchInput) {
+//calculate the data we want to show
+let filteredList = [...simpsons];
+
+//filtered by search
+if (searchInput) {
   filteredList = filteredList.filter((char) => {
-    console.log(char.character, this.state.searchInput)
+    console.log(char.character, searchInput)
     if (
       char.character
       .toLowerCase()
-      .includes(this.state.searchInput.toLowerCase())
+      .includes(searchInput.toLowerCase())
       )
       return true;
   });
 }
 
+//sort by liked / not liked
+if (LikeInput === "liked") {
+filteredList.sort();
+} else if (LikeInput === "notLiked") {
+  filteredList.sort();
+}
+
+
 return filteredList;
 }
 
   render() {
+    //console.log(this.state);
 
     const { simpsons } = this.state;
 
@@ -79,7 +97,7 @@ return filteredList;
 
     if (simpsons.length === 0) return <p>You deleted all the characters!</p>;
 
-    //calculate the total
+    //calculate the total likes
     let total = 0;
     simpsons.forEach((char) => {
       if (char.liked) total++;
@@ -96,6 +114,7 @@ return filteredList;
           onDelete={this.onDelete}
           onLikeToggle={this.onLikeToggle}
           onSearchInput={this.onSearchInput}
+          onLikeInput={this.onLikeInput}
         />
       </>
     );
