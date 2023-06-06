@@ -79,9 +79,16 @@ if (searchInput) {
 
 //sort by liked / not liked
 if (LikeInput === "liked") {
-filteredList.sort();
+filteredList.sort((itemOne, itemTwo) => {
+if (itemOne.liked === true) return -1;
+if (!itemTwo.liked) return 1; 
+});
 } else if (LikeInput === "notLiked") {
-  filteredList.sort();
+  filteredList.sort((itemOne, itemTwo) => {
+      if (itemTwo.liked === true) return -1;
+      if (!itemOne.liked) return 1; 
+
+  });
 }
 
 
